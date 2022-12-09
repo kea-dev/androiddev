@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ECHO "#" $(gh repo view --json name  --jq '.name') > README-containers.md
+ECHO "[See it on GitHub]("$(gh repo view --json url  --jq '.url')")" >> README-containers.md
+ECHO $(gh repo view --json description --jq '.description') >> README-containers.md
+ECHO ### Dockerfile >> README-containers.md
+ECHO "\`\`\` docker" >> README-containers.md
+cat ./dockerfile >> README-containers.md
+ECHO "\`\`\`" >> README-containers.md
+
+docker build -t lakruzz/androiddev .
+docker push lakruzz/androiddev:latest
+docker pushrm lakruzz/androiddev
+
+rm README-containers.md
