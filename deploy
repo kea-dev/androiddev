@@ -8,8 +8,6 @@ ECHO "\`\`\` docker" >> README-containers.md
 cat ./dockerfile >> README-containers.md
 ECHO "\`\`\`" >> README-containers.md
 
-docker build -t lakruzz/androiddev .
-docker push lakruzz/androiddev:latest
-docker pushrm lakruzz/androiddev
+docker buildx build --platform linux/arm64 -t lakruzz/androiddev:latest --push .
 
 rm README-containers.md
